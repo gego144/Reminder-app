@@ -30,8 +30,8 @@ hour = input("When would you like to be reminded?")
 #checking to see if input is a number and making sure its only 6 values
 while hour.isdigit() == False or len(hour) != 6:
     hour = input("Please input it in the format hour/minute/second ")
-else:
-    time_seperated = list(hour)
+
+time_seperated = list(hour)
 
 
 # putting it into a list to make divide the values into their respective parts
