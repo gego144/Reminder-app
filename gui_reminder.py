@@ -1,6 +1,7 @@
 import tkinter as tk
 
 root = tk.Tk()
+root.title("Reminder")
 
 HEIGHT = 125
 WIDTH = 600
@@ -13,8 +14,11 @@ seconds = []
 
 
 def get_text(entry):
+    global the_text
     the_text_holder.append(entry)
-    print(the_text_holder)
+    the_text= ''.join(the_text_holder)
+    return the_text
+
 
 def how_long_sleep(the_hour, the_minute, the_second):
     global sleep_for
@@ -23,7 +27,16 @@ def how_long_sleep(the_hour, the_minute, the_second):
 
 
 def open_window():
-    top = tk.Toplevel()
+    top = tk.Toplevel(root)
+    top.title("Your reminder")
+    canvas1 = tk.Canvas(top, height=HEIGHT, width=WIDTH)
+    canvas1.pack()
+    frame1 = tk.Frame(top, bg="#696969")
+    frame1.place(relwidth=1, relheight=1)
+    label0 = tk.Label(top, text="Don't forget!!!", bg="#8b0000", font=("arial", 12))
+    label0.place(relx=0.05, rely=0.01)
+    label1 = tk.Label(top, text= the_text, bg="#21558c", font=("arial", 12))
+    label1.place(relx=0.05, rely=0.19)
 
 
 
@@ -55,8 +68,10 @@ def date_limit(entry):
         the_date_holder.append(entry)
 
         how_long_sleep(hours_in_int, minutes_in_int, seconds_in_int)
-        root.after(sleep_for, command = open_window)
-        root.after(0, lambda:root.destroy())
+        root.after(sleep_for,open_window)
+        root.withdraw()
+        root.after(sleep_for, root.deiconify())
+
 
 
 canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
