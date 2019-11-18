@@ -12,20 +12,20 @@ hours = []
 minutes = []
 seconds = []
 
-
+# Getting the text the user wants to be reminded of
 def get_text(entry):
     global the_text
     the_text_holder.append(entry)
     the_text= ''.join(the_text_holder)
     return the_text
 
-
+# Getting when the user wants to be reminded 
 def how_long_sleep(the_hour, the_minute, the_second):
     global sleep_for
     sleep_for = (3600000 * the_hour) +  (60000 * the_minute) + (1000 * the_second)
     return sleep_for
 
-
+# The pop up of the reminder
 def open_window():
     top = tk.Toplevel(root)
     top.title("Your reminder")
@@ -38,8 +38,7 @@ def open_window():
     label1 = tk.Label(top, text= the_text, bg="#21558c", font=("arial", 12))
     label1.place(relx=0.05, rely=0.19)
 
-
-
+# Making sure the user is inputing the correct time format and putting the program to sleep for as long as they requested if it is correct
 def date_limit(entry):
     if len(entry) != 6 or entry.isdigit() == False:
         error_label = tk.Label(frame, text="Please make sure you are putting in a number with 6 digits", bg="#696969", font=("arial", 12))
@@ -70,10 +69,9 @@ def date_limit(entry):
         how_long_sleep(hours_in_int, minutes_in_int, seconds_in_int)
         root.after(sleep_for,open_window)
         root.withdraw()
-        root.after(sleep_for, root.deiconify())
+        root.after(sleep_for, root.deiconify)
 
-
-
+# Building the gui itself
 canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
 canvas.pack()
 
@@ -93,6 +91,7 @@ label.place(relx=0.05, rely=0.37)
 
 label = tk.Label(frame, text="Format: hours/minutes/seconds, 00/00/00, without the /", bg="#21558c", font=("arial", 12))
 label.place(relx=0.05, rely=0.54)
+
 
 reminder_entry = tk.Entry(frame, bg="white")
 reminder_entry.place(relx=0.3, rely=0.19, relwidth=0.6)
